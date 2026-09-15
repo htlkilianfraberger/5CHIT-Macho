@@ -2,12 +2,13 @@ namespace Factory.Models;
 
 public class Thermostat : ISmartDevice
 {
-    public Thermostat(string name)
+    public Thermostat(string name, decimal currentTemperature, decimal targetTemperature, string mode)
     {
         Id = Guid.NewGuid();
         Name = name;
-        CurrentTemperature = 21.4m;
-        TargetTemperature = 22.0m;
+        CurrentTemperature = currentTemperature;
+        TargetTemperature = targetTemperature;
+        Mode = mode;
     }
 
     public Guid Id { get; }
@@ -16,6 +17,7 @@ public class Thermostat : ISmartDevice
     public bool IsOn { get; private set; }
     public decimal CurrentTemperature { get; }
     public decimal TargetTemperature { get; private set; }
+    public string Mode { get; }
 
     public void TurnOn() => IsOn = true;
     public void TurnOff() => IsOn = false;

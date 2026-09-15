@@ -1,0 +1,33 @@
+.ticket-toolbar {
+    align-items: end;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(8rem, 12rem)) repeat(3, auto);
+    margin: 1.5rem 0;
+}
+
+.field {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.field label {
+    color: #495057;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.ticket-table {
+    max-width: 32rem;
+}
+
+.alert {
+    max-width: 48rem;
+}
+
+@media (max-width: 720px) {
+    .ticket-toolbar {
+        align-items: stretch;
+        grid-template-columns: 1fr;
+    }
+}

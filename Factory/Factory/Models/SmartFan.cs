@@ -2,11 +2,13 @@ namespace Factory.Models;
 
 public class SmartFan : ISmartDevice
 {
-    public SmartFan(string name)
+    public SmartFan(string name, int speed, bool oscillationEnabled, string mode)
     {
         Id = Guid.NewGuid();
         Name = name;
-        Speed = 2;
+        Speed = speed;
+        OscillationEnabled = oscillationEnabled;
+        Mode = mode;
     }
 
     public Guid Id { get; }
@@ -14,6 +16,8 @@ public class SmartFan : ISmartDevice
     public string DeviceType => "Smart Fan";
     public bool IsOn { get; private set; }
     public int Speed { get; private set; }
+    public bool OscillationEnabled { get; }
+    public string Mode { get; }
 
     public void TurnOn() => IsOn = true;
     public void TurnOff() => IsOn = false;

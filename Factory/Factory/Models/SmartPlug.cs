@@ -4,10 +4,12 @@ public class SmartPlug : ISmartDevice
 {
     private static readonly Random Random = new();
 
-    public SmartPlug(string name)
+    public SmartPlug(string name, int safetyLimitWatts, int standbyThresholdWatts)
     {
         Id = Guid.NewGuid();
         Name = name;
+        SafetyLimitWatts = safetyLimitWatts;
+        StandbyThresholdWatts = standbyThresholdWatts;
         PowerConsumption = Random.Next(45, 260);
     }
 
@@ -16,6 +18,8 @@ public class SmartPlug : ISmartDevice
     public string DeviceType => "Smart Plug";
     public bool IsOn { get; private set; }
     public int PowerConsumption { get; private set; }
+    public int SafetyLimitWatts { get; }
+    public int StandbyThresholdWatts { get; }
 
     public void TurnOn()
     {

@@ -17,6 +17,7 @@ public class SmartHomeService
             nameof(SmartDeviceCreator.CreateDevice) + "()",
             "-",
             "-",
+            "-",
             nameof(ISmartDevice));
     }
 
@@ -40,6 +41,7 @@ public class SmartHomeService
             nameof(SmartDeviceCreator.CreateDevice) + "()",
             GetFactoryMethodImplementation(creator),
             creator.ProductName,
+            creator.CreationDetails,
             nameof(ISmartDevice));
 
         return device;

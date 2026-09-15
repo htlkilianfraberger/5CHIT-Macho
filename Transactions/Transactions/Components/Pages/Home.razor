@@ -1,0 +1,131 @@
+@page "/"
+@rendermode InteractiveServer
+@inject TicketRepository Tickets
+
+<PageTitle>Tickets</PageTitle>
+
+<h11>Ticketverwaltung</h11>
+
+<section class="ticket-toolbar">
+    <div class="field">
+        <label for="ticket-id">Ticket-ID</label>
+        <InputNumber id="ticket-id" class="form-control" @bind-Value="ticketId"/>
+    </div>
+
+    <div class="field">
+        <label for="amount">Menge</label>
+        <InputNumber id="amount" class="form-control" @bind-Value="amount"/>
+    </div>
+
+    <button class="btn btn-success" disabled="@isBusy" @onclick="AddAsync">Hinzufügen</button>
+    <button class="btn btn-danger" disabled="@isBusy" @onclick="RemoveAsync">Entfernen</button>
+    <button class="btn btn-outline-secondary" disabled="@isBusy" @onclick="LoadAsync">Aktualisieren</button>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(message))
+{
+    <div class="@messageCss" role="status">@message</div>
+}
+
+@if (isLoading)
+{
+    <p>Lade Tickets...</p>
+}
+else if (tickets.Count == 0)
+{
+    <p>Keine Tickets gefunden.</p>
+}
+else
+{
+    <table class="table ticket-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Verfügbar</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var ticket in tickets)
+        {
+            <tr>
+                <td>@ticket.Id</td>
+                <td>@ticket.Available</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Ticket> tickets = [];
+    private int ticketId = 1;
+    private int amount = 1;
+    private bool isBusy;
+    private bool isLoading = true;
+    private string? message;
+    private string messageCss = "alert alert-info";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
+        await RunAsync(async () =>
+        {
+            tickets = [.. await Tickets.GetTicketsAsync()];
+            message ??= "Tickets geladen.";
+        });
+    }
+
+    private async Task AddAsync()
+    {
+        await RunAsync(async () =>
+        {
+            var ticket = await Tickets.AddTicketsAsync(ticketId, amount);
+            message = $"{amount} Ticket(s) zu ID {ticket.Id} hinzugefügt. Neuer Bestand: {ticket.Available}.";
+            messageCss = "alert alert-success";
+            tickets = [.. await Tickets.GetTicketsAsync()];
+        });
+    }
+
+    private async Task RemoveAsync()
+    {
+        await RunAsync(async () =>
+        {
+            var ticket = await Tickets.RemoveTicketsAsync(ticketId, amount);
+            message = $"{amount} Ticket(s) von ID {ticket.Id} entfernt. Neuer Bestand: {ticket.Available}.";
+            messageCss = "alert alert-success";
+            tickets = [.. await Tickets.GetTicketsAsync()];
+        });
+    }
+
+    private async Task RunAsync(Func<Task> action)
+    {
+        if (amount <= 0)
+        {
+            message = "Die Menge muss größer als 0 sein.";
+            messageCss = "alert alert-warning";
+            return;
+        }
+
+        isBusy = true;
+        isLoading = true;
+
+        try
+        {
+            await action();
+        }
+        catch (Exception ex)
+        {
+            message = ex.Message;
+            messageCss = "alert alert-danger";
+        }
+        finally
+        {
+            isBusy = false;
+            isLoading = false;
+        }
+    }
+}

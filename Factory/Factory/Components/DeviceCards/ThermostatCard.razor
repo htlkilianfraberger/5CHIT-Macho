@@ -20,6 +20,11 @@
         </div>
     </div>
 
+    <div class="metric-row compact">
+        <span>Mode</span>
+        <strong>@Device.Mode</strong>
+    </div>
+
     <div class="stepper">
         <button @onclick="Device.DecreaseTargetTemperature">-</button>
         <span>@Device.TargetTemperature.ToString("0.0") °C</span>

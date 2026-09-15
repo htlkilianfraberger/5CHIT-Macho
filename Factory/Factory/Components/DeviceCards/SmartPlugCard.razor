@@ -13,6 +13,14 @@
         <span>Power</span>
         <strong>@Device.PowerConsumption W</strong>
     </div>
+    <div class="metric-row compact">
+        <span>Safety limit</span>
+        <strong>@Device.SafetyLimitWatts W</strong>
+    </div>
+    <div class="metric-row compact">
+        <span>Standby</span>
+        <strong>@Device.StandbyThresholdWatts W</strong>
+    </div>
 
     <div class="card-actions">
         <button class="primary-action" @onclick="TogglePower">@(Device.IsOn ? "Turn Off" : "Turn On")</button>

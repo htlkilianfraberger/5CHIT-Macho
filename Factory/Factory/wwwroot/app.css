@@ -420,3 +420,12 @@ button {
     background: rgba(251, 191, 36, 0.16);
     color: #fde68a;
 }
+
+.metric-row.compact {
+    font-size: 0.95rem;
+}
+
+.metric-row.compact strong {
+    font-size: 0.95rem;
+    text-align: right;
+}

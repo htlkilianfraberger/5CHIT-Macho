@@ -27,6 +27,20 @@ SmartLightCreator
 
 Genau diese Austauschbarkeit der Erzeugungslogik ist der zentrale Punkt des Factory Method Patterns: Der gemeinsame Ablauf bleibt gleich, aber der Erzeugungsschritt kann je nach Creator variieren.
 
+## Warum eigene Creator?
+
+In diesem Projekt erzeugen die spezialisierten Creator nicht nur irgendein Objekt, sondern setzen direkt sinnvolle Startwerte:
+
+| Creator           | Erzeugungslogik in CreateDevice()                            |
+| ----------------- | ------------------------------------------------------------ |
+| BasicDeviceCreator | nutzt die geerbte Standardmethode und erzeugt GenericSmartDevice |
+| SmartLightCreator | setzt Standardhelligkeit und Farbtemperatur                  |
+| SmartPlugCreator  | setzt Sicherheitslimit und Standby-Grenze                    |
+| ThermostatCreator | setzt aktuelle Temperatur, Zieltemperatur und Modus          |
+| SmartFanCreator   | setzt Startgeschwindigkeit, Oszillation und Modus            |
+
+Dadurch ist besser sichtbar, warum die Factory Method nuetzlich ist: Jeder Creator kapselt die konkrete Erzeugungslogik seines Produkts. Der restliche Code arbeitet trotzdem nur mit `ISmartDevice`.
+
 ## Zuordnung im Projekt
 
 | Factory Method Pattern | Smart Home Projekt                                            |
@@ -65,7 +79,7 @@ SmartLightCreator selected
         ↓
 overridden CreateDevice()
         ↓
-new SmartLight(...)
+new SmartLight(name, defaultBrightness, colorTemperature)
         ↓
 returned as ISmartDevice
         ↓

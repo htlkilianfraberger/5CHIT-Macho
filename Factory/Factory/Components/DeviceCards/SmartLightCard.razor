@@ -13,6 +13,10 @@
         <span>Brightness</span>
         <strong>@Device.Brightness %</strong>
     </div>
+    <div class="metric-row compact">
+        <span>Color</span>
+        <strong>@Device.ColorTemperature</strong>
+    </div>
 
     <input class="range-control" type="range" min="0" max="100" step="5" @bind="Device.Brightness" @bind:event="oninput" />
 

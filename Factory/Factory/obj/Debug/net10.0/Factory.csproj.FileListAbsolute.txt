@@ -82,4 +82,14 @@ C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory\obj\Debug\net10.0\Factory.genr
 C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory\obj\Debug\net10.0\ref\Factory.dll
 C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory\obj\Debug\net10.0\compressed\921tdf13m5-{0}-376x70fsqt-376x70fsqt.gz
 C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory\obj\Debug\net10.0\compressed\xu9zx720i3-{0}-376x70fsqt-376x70fsqt.gz
-C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory\obj\Debug\net10.0\compressed\cuevvluayy-{0}-7yu8o7acxm-7yu8o7acxm.gz
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory\obj\Debug\net10.0\Factory.sourcelink.json
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory\obj\Debug\net10.0\compressed\cuevvluayy-{0}-bbzbiyng7h-bbzbiyng7h.gz
+C:\Users\kilia\.codex\.chatgpt-projects\g-p-6a27e9c75fb48191a2ed4928528fa7c9\build-check\appsettings.Development.json
+C:\Users\kilia\.codex\.chatgpt-projects\g-p-6a27e9c75fb48191a2ed4928528fa7c9\build-check\appsettings.json
+C:\Users\kilia\.codex\.chatgpt-projects\g-p-6a27e9c75fb48191a2ed4928528fa7c9\build-check\Factory.staticwebassets.runtime.json
+C:\Users\kilia\.codex\.chatgpt-projects\g-p-6a27e9c75fb48191a2ed4928528fa7c9\build-check\Factory.staticwebassets.endpoints.json
+C:\Users\kilia\.codex\.chatgpt-projects\g-p-6a27e9c75fb48191a2ed4928528fa7c9\build-check\Factory.exe
+C:\Users\kilia\.codex\.chatgpt-projects\g-p-6a27e9c75fb48191a2ed4928528fa7c9\build-check\Factory.deps.json
+C:\Users\kilia\.codex\.chatgpt-projects\g-p-6a27e9c75fb48191a2ed4928528fa7c9\build-check\Factory.runtimeconfig.json
+C:\Users\kilia\.codex\.chatgpt-projects\g-p-6a27e9c75fb48191a2ed4928528fa7c9\build-check\Factory.dll
+C:\Users\kilia\.codex\.chatgpt-projects\g-p-6a27e9c75fb48191a2ed4928528fa7c9\build-check\Factory.pdb

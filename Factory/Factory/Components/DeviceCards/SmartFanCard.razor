@@ -13,6 +13,14 @@
         <span>Speed</span>
         <strong>@Device.Speed</strong>
     </div>
+    <div class="metric-row compact">
+        <span>Mode</span>
+        <strong>@Device.Mode</strong>
+    </div>
+    <div class="metric-row compact">
+        <span>Oscillation</span>
+        <strong>@(Device.OscillationEnabled ? "On" : "Off")</strong>
+    </div>
 
     <div class="speed-control" role="group" aria-label="Fan speed">
         @for (int speed = 1; speed <= 3; speed++)

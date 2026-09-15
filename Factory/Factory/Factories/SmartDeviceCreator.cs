@@ -6,6 +6,7 @@ public abstract class SmartDeviceCreator
 {
     public abstract string DisplayName { get; }
     public virtual string ProductName => nameof(GenericSmartDevice);
+    public virtual string CreationDetails => "Creates a basic generic device with the default parent implementation.";
 
     // FACTORY METHOD:
     // This default implementation creates a generic product.

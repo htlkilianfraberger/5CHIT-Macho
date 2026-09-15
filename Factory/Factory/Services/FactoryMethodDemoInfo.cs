@@ -6,4 +6,5 @@ public record FactoryMethodDemoInfo(
     string FactoryMethod,
     string Implementation,
     string CreatedProduct,
+    string CreationDetails,
     string ReturnedAs);
