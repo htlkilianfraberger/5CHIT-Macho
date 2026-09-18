@@ -22,6 +22,10 @@ public sealed class TransactionsContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("Id");
             entity.Property(e => e.Available).HasColumnName("available");
+            entity.Property(e => e.Version)
+                .HasColumnName("version")
+                .HasColumnType("char(36)")
+                .IsConcurrencyToken();
         });
     }
 }

@@ -1,4 +1,3 @@
-using System.Data;
 using Microsoft.EntityFrameworkCore;
 using Transactions.Models;
 
@@ -31,20 +30,26 @@ public sealed class TicketRepository
         }
 
         await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
-        await using var transaction = await context.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
-        await context.Database.ExecuteSqlInterpolatedAsync(
-            $"""
-             insert into tickets (Id, available)
-             values ({ticketId}, {amount})
-             on duplicate key update available = available + values(available);
-             """,
-            cancellationToken);
+        var ticket = await context.Tickets
+            .SingleOrDefaultAsync(ticket => ticket.Id == ticketId, cancellationToken);
 
-        var ticket = await ReadTicketAsync(context, ticketId, cancellationToken)
-            ?? throw new InvalidOperationException($"Ticket {ticketId} could not be loaded after update.");
+        if (ticket is null)
+        {
+            ticket = new Ticket
+            {
+                Id = ticketId,
+                Available = amount,
+            };
+            context.Tickets.Add(ticket);
+        }
+        else
+        {
+            ticket.Available += amount;
+            ticket.Version = Guid.NewGuid();
+        }
 
-        await transaction.CommitAsync(cancellationToken);
+        await SaveChangesAsync(context, cancellationToken);
         return ticket;
     }
 
@@ -56,34 +61,37 @@ public sealed class TicketRepository
         }
 
         await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
-        await using var transaction = await context.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
-        var updatedRows = await context.Tickets
-            .Where(ticket => ticket.Id == ticketId && ticket.Available >= amount)
-            .ExecuteUpdateAsync(
-                setters => setters.SetProperty(ticket => ticket.Available, ticket => ticket.Available - amount),
-                cancellationToken);
-
-        var ticket = await ReadTicketAsync(context, ticketId, cancellationToken)
+        var ticket = await context.Tickets
+            .SingleOrDefaultAsync(ticket => ticket.Id == ticketId, cancellationToken)
             ?? throw new InvalidOperationException($"Ticket {ticketId} does not exist.");
 
-        if (updatedRows == 0)
+        if (ticket.Available < amount)
         {
             throw new InvalidOperationException(
                 $"Not enough tickets are available for ticket ID {ticketId}.");
         }
 
-        await transaction.CommitAsync(cancellationToken);
+        ticket.Available -= amount;
+        ticket.Version = Guid.NewGuid();
+
+        await SaveChangesAsync(context, cancellationToken);
         return ticket;
     }
 
-    private static Task<Ticket?> ReadTicketAsync(
+    private static async Task SaveChangesAsync(
         TransactionsContext context,
-        int ticketId,
         CancellationToken cancellationToken)
     {
-        return context.Tickets
-            .AsNoTracking()
-            .SingleOrDefaultAsync(ticket => ticket.Id == ticketId, cancellationToken);
+        try
+        {
+            await context.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            throw new InvalidOperationException(
+                "Das Ticket wurde in der Zwischenzeit geändert. Bitte aktualisieren und erneut versuchen.",
+                ex);
+        }
     }
 }
