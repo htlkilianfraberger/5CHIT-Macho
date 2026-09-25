@@ -11,6 +11,7 @@ StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configurat
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddSingleton<SmartDeviceCreator, BasicDeviceCreator>();
 builder.Services.AddSingleton<SmartDeviceCreator, SmartLightCreator>();
 builder.Services.AddSingleton<SmartDeviceCreator, SmartPlugCreator>();
 builder.Services.AddSingleton<SmartDeviceCreator, ThermostatCreator>();
@@ -35,3 +36,4 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+

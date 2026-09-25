@@ -85,7 +85,8 @@ else
     {
         await RunAsync(async () =>
         {
-            var ticket = await Tickets.AddTicketsAsync(ticketId, amount);
+            var loadedTicket = tickets.SingleOrDefault(ticket => ticket.Id == ticketId);
+            var ticket = await Tickets.AddTicketsAsync(ticketId, loadedTicket, amount);
             message = $"{amount} Ticket(s) zu ID {ticket.Id} hinzugefügt. Neuer Bestand: {ticket.Available}.";
             messageCss = "alert alert-success";
             tickets = [.. await Tickets.GetTicketsAsync()];
@@ -96,11 +97,19 @@ else
     {
         await RunAsync(async () =>
         {
-            var ticket = await Tickets.RemoveTicketsAsync(ticketId, amount);
+            var loadedTicket = GetLoadedTicket();
+            var ticket = await Tickets.RemoveTicketsAsync(loadedTicket, amount);
             message = $"{amount} Ticket(s) von ID {ticket.Id} entfernt. Neuer Bestand: {ticket.Available}.";
             messageCss = "alert alert-success";
             tickets = [.. await Tickets.GetTicketsAsync()];
         });
+    }
+
+    private Ticket GetLoadedTicket()
+    {
+        return tickets.SingleOrDefault(ticket => ticket.Id == ticketId)
+            ?? throw new InvalidOperationException(
+                $"Ticket {ticketId} ist in diesem Browserfenster nicht geladen. Bitte zuerst aktualisieren.");
     }
 
     private async Task RunAsync(Func<Task> action)

@@ -22,7 +22,11 @@ public sealed class TicketRepository
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<Ticket> AddTicketsAsync(int ticketId, int amount, CancellationToken cancellationToken = default)
+    public async Task<Ticket> AddTicketsAsync(
+        int ticketId,
+        Ticket? loadedTicket,
+        int amount,
+        CancellationToken cancellationToken = default)
     {
         if (amount <= 0)
         {
@@ -31,49 +35,64 @@ public sealed class TicketRepository
 
         await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
 
-        var ticket = await context.Tickets
-            .SingleOrDefaultAsync(ticket => ticket.Id == ticketId, cancellationToken);
-
-        if (ticket is null)
+        if (loadedTicket is null)
         {
-            ticket = new Ticket
+            var newTicket = new Ticket
             {
                 Id = ticketId,
                 Available = amount,
             };
-            context.Tickets.Add(ticket);
+            context.Tickets.Add(newTicket);
+
+            await SaveChangesAsync(context, cancellationToken);
+            return newTicket;
         }
-        else
+
+        var ticket = new Ticket
         {
-            ticket.Available += amount;
-            ticket.Version = Guid.NewGuid();
-        }
+            Id = loadedTicket.Id,
+            Available = loadedTicket.Available + amount,
+            Version = Guid.NewGuid(),
+        };
+
+        context.Attach(ticket);
+        context.Entry(ticket).Property(t => t.Available).IsModified = true;
+        context.Entry(ticket).Property(t => t.Version).IsModified = true;
+        context.Entry(ticket).Property(t => t.Version).OriginalValue = loadedTicket.Version;
 
         await SaveChangesAsync(context, cancellationToken);
         return ticket;
     }
 
-    public async Task<Ticket> RemoveTicketsAsync(int ticketId, int amount, CancellationToken cancellationToken = default)
+    public async Task<Ticket> RemoveTicketsAsync(
+        Ticket loadedTicket,
+        int amount,
+        CancellationToken cancellationToken = default)
     {
         if (amount <= 0)
         {
             throw new ArgumentOutOfRangeException(nameof(amount), "Amount must be greater than zero.");
         }
 
-        await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
-
-        var ticket = await context.Tickets
-            .SingleOrDefaultAsync(ticket => ticket.Id == ticketId, cancellationToken)
-            ?? throw new InvalidOperationException($"Ticket {ticketId} does not exist.");
-
-        if (ticket.Available < amount)
+        if (loadedTicket.Available < amount)
         {
             throw new InvalidOperationException(
-                $"Not enough tickets are available for ticket ID {ticketId}.");
+                $"Not enough tickets are available for ticket ID {loadedTicket.Id}.");
         }
 
-        ticket.Available -= amount;
-        ticket.Version = Guid.NewGuid();
+        await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
+
+        var ticket = new Ticket
+        {
+            Id = loadedTicket.Id,
+            Available = loadedTicket.Available - amount,
+            Version = Guid.NewGuid(),
+        };
+
+        context.Attach(ticket);
+        context.Entry(ticket).Property(t => t.Available).IsModified = true;
+        context.Entry(ticket).Property(t => t.Version).IsModified = true;
+        context.Entry(ticket).Property(t => t.Version).OriginalValue = loadedTicket.Version;
 
         await SaveChangesAsync(context, cancellationToken);
         return ticket;

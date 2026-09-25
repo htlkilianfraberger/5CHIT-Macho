@@ -92,3 +92,11 @@ C:\Users\kilia\Github\5CHIT-Macho\Transactions\Transactions\bin\Debug\net10.0\Mi
 C:\Users\kilia\Github\5CHIT-Macho\Transactions\Transactions\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\kilia\Github\5CHIT-Macho\Transactions\Transactions\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\kilia\Github\5CHIT-Macho\Transactions\Transactions\bin\Debug\net10.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\kilia\Documents\Codex\2026-09-22\page-rendermode-interactiveserver-inject-ticketrepository-tickets\work\transactions-build\appsettings.Development.json
+C:\Users\kilia\Documents\Codex\2026-09-22\page-rendermode-interactiveserver-inject-ticketrepository-tickets\work\transactions-build\appsettings.json
+C:\Users\kilia\Documents\Codex\2026-09-22\page-rendermode-interactiveserver-inject-ticketrepository-tickets\work\transactions-build\Transactions.staticwebassets.runtime.json
+C:\Users\kilia\Documents\Codex\2026-09-22\page-rendermode-interactiveserver-inject-ticketrepository-tickets\work\transactions-build\Transactions.staticwebassets.endpoints.json
+C:\Users\kilia\Documents\Codex\2026-09-22\page-rendermode-interactiveserver-inject-ticketrepository-tickets\work\transactions-build\Transactions.deps.json
+C:\Users\kilia\Documents\Codex\2026-09-22\page-rendermode-interactiveserver-inject-ticketrepository-tickets\work\transactions-build\Transactions.runtimeconfig.json
+C:\Users\kilia\Documents\Codex\2026-09-22\page-rendermode-interactiveserver-inject-ticketrepository-tickets\work\transactions-build\Transactions.dll
+C:\Users\kilia\Documents\Codex\2026-09-22\page-rendermode-interactiveserver-inject-ticketrepository-tickets\work\transactions-build\Transactions.pdb
