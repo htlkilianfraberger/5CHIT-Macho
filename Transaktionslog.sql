@@ -11,6 +11,7 @@ CREATE TABLE transaktionslog (
                                  transaktions_id INT AUTO_INCREMENT PRIMARY KEY,
                                  zeitpunkt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                  konto_id INT,
+                                 benutzer VARCHAR(100),
                                  aktion VARCHAR(10),
                                  old_wert DECIMAL(10,2),
                                  new_wert DECIMAL(10,2)
@@ -22,24 +23,30 @@ CREATE TRIGGER konto_insert_log
     AFTER INSERT ON konto
     FOR EACH ROW
 BEGIN
-    INSERT INTO transaktionslog (konto_id, aktion, old_wert, new_wert)
-    VALUES (NEW.konto_id, 'INSERT', NULL, NEW.kontostand);
+    INSERT INTO transaktionslog
+    (konto_id, benutzer, aktion, old_wert, new_wert)
+    VALUES
+        (NEW.konto_id, USER(), 'INSERT', NULL, NEW.kontostand);
 END //
 
 CREATE TRIGGER konto_update_log
     AFTER UPDATE ON konto
     FOR EACH ROW
 BEGIN
-    INSERT INTO transaktionslog (konto_id, aktion, old_wert, new_wert)
-    VALUES (NEW.konto_id, 'UPDATE', OLD.kontostand, NEW.kontostand);
+    INSERT INTO transaktionslog
+    (konto_id, benutzer, aktion, old_wert, new_wert)
+    VALUES
+        (NEW.konto_id, USER(), 'UPDATE', OLD.kontostand, NEW.kontostand);
 END //
 
 CREATE TRIGGER konto_delete_log
     AFTER DELETE ON konto
     FOR EACH ROW
 BEGIN
-    INSERT INTO transaktionslog (konto_id, aktion, old_wert, new_wert)
-    VALUES (OLD.konto_id, 'DELETE', OLD.kontostand, NULL);
+    INSERT INTO transaktionslog
+    (konto_id, benutzer, aktion, old_wert, new_wert)
+    VALUES
+        (OLD.konto_id, USER(), 'DELETE', OLD.kontostand, NULL);
 END //
 
 DELIMITER ;
