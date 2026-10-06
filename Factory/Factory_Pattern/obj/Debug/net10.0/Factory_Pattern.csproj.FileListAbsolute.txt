@@ -1,0 +1,12 @@
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\bin\Debug\net10.0\Factory_Pattern.deps.json
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\bin\Debug\net10.0\Factory_Pattern.dll
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\bin\Debug\net10.0\Factory_Pattern.pdb
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\Factory_Pattern.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\Factory_Pattern.AssemblyInfoInputs.cache
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\Factory_Pattern.AssemblyInfo.cs
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\Factory_Pattern.csproj.CoreCompileInputs.cache
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\Factory_Pattern.sourcelink.json
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\Factory_Pattern.dll
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\refint\Factory_Pattern.dll
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\Factory_Pattern.pdb
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\ref\Factory_Pattern.dll

@@ -1,0 +1,145 @@
+@page "/"
+@rendermode InteractiveServer
+@using Factory_Blazor.Services
+@using Factory_Pattern.Products
+@inject SmartHomeService SmartHome
+
+<PageTitle>Abstract Factory Smart Home</PageTitle>
+
+<main class="dashboard-shell">
+    <section class="dashboard-header">
+        <div>
+            <p class="eyebrow">Abstract Factory Pattern</p>
+            <h1>Smart Home Fabriken</h1>
+        </div>
+        <div class="device-count">
+            <span>@SmartHome.Devices.Count</span>
+            <small>Produkte</small>
+        </div>
+    </section>
+
+    <section class="control-grid">
+        <form class="panel add-device-panel" @onsubmit="AddDevice" @onsubmit:preventDefault>
+            <h2>Produkt erzeugen</h2>
+
+            <label for="factory-name">Konkrete Fabrik</label>
+            <select id="factory-name" @bind="selectedFactory">
+                @foreach (string factory in SmartHome.FactoryNames)
+                {
+                    <option value="@factory">@factory</option>
+                }
+            </select>
+
+            <label for="product-type">Abstraktes Produkt</label>
+            <select id="product-type" @bind="selectedProductType">
+                @foreach (string productType in SmartHome.ProductTypes)
+                {
+                    <option value="@productType">@productType</option>
+                }
+            </select>
+
+            <label for="device-name">Name</label>
+            <input id="device-name" type="text" placeholder="Wohnzimmer" @bind="deviceName" />
+
+            <button class="add-button" type="submit">Erzeugen</button>
+        </form>
+
+        <section class="panel demo-panel">
+            <h2>Letzter Factory-Aufruf</h2>
+            <dl>
+                <dt>Auswahl</dt>
+                <dd>@SmartHome.LastDemoInfo.SelectedFactory</dd>
+                <dt>Abstrakte Fabrik</dt>
+                <dd>@SmartHome.LastDemoInfo.AbstractFactory</dd>
+                <dt>Konkrete Fabrik</dt>
+                <dd>@SmartHome.LastDemoInfo.ConcreteFactory</dd>
+                <dt>Factory-Methode</dt>
+                <dd>@SmartHome.LastDemoInfo.FactoryMethod</dd>
+                <dt>Konkretes Produkt</dt>
+                <dd>@SmartHome.LastDemoInfo.CreatedProduct</dd>
+                <dt>Produktfamilie</dt>
+                <dd>@SmartHome.LastDemoInfo.ProductFamily</dd>
+                <dt>Rueckgabe als</dt>
+                <dd>@SmartHome.LastDemoInfo.ReturnedAs</dd>
+            </dl>
+        </section>
+    </section>
+
+    <section class="devices-section">
+        <h2>Erzeugte Produkte</h2>
+        @if (SmartHome.Devices.Count == 0)
+        {
+            <div class="empty-state">Erzeuge ein SmartLight oder RgbSmartLight ueber Shelly oder Loxone.</div>
+        }
+        else
+        {
+            <div class="device-grid">
+                @foreach (ISmartLight device in SmartHome.Devices)
+                {
+                    @switch (device)
+                    {
+                        case IRgbSmartLight rgbSmartLight:
+                            <RgbSmartLightCard Device="rgbSmartLight" OnRemove="RemoveDevice" />
+                            break;
+                        case ISmartLight smartLight:
+                            <SmartLightCard Device="smartLight" OnRemove="RemoveDevice" />
+                            break;
+                    }
+                }
+            </div>
+        }
+    </section>
+
+    <section class="panel pattern-panel">
+        <h2>Aufteilung nach Abstract Factory</h2>
+        <div class="pattern-flow abstract-factory-flow">
+            <div class="pattern-node creator">Klient<br /><span>nutzt nur ISmartHomeFactory</span></div>
+            <div class="connector vertical"></div>
+            <div class="pattern-node creator">ISmartHomeFactory<br /><span>CreateSmartLight() / CreateRgbSmartLight()</span></div>
+            <div class="connector vertical"></div>
+            <div class="implementation-row two-columns">
+                <div class="implementation-column">
+                    <div class="implementation-label overridden">KonkreteFabrik1</div>
+                    <div class="pattern-node">ShellyFactory</div>
+                    <div class="connector vertical"></div>
+                    <div class="pattern-node product">SmartLight</div>
+                    <div class="pattern-node product">RgbSmartLight</div>
+                </div>
+                <div class="implementation-column">
+                    <div class="implementation-label overridden">KonkreteFabrik2</div>
+                    <div class="pattern-node">LoxoneFactory</div>
+                    <div class="connector vertical"></div>
+                    <div class="pattern-node product">SmartLight</div>
+                    <div class="pattern-node product">RgbSmartLight</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@code {
+    private string selectedFactory = "Shelly";
+    private string selectedProductType = "SmartLight";
+    private string deviceName = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        selectedFactory = SmartHome.FactoryNames.FirstOrDefault() ?? "Shelly";
+        selectedProductType = SmartHome.ProductTypes.FirstOrDefault() ?? "SmartLight";
+    }
+
+    private void AddDevice()
+    {
+        string finalName = string.IsNullOrWhiteSpace(deviceName)
+            ? selectedProductType
+            : deviceName.Trim();
+
+        SmartHome.AddDevice(selectedFactory, selectedProductType, finalName);
+        deviceName = string.Empty;
+    }
+
+    private void RemoveDevice(Guid id)
+    {
+        SmartHome.RemoveDevice(id);
+    }
+}

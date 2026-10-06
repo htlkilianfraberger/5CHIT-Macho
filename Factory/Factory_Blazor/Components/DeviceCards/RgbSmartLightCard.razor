@@ -1,0 +1,97 @@
+@using Factory_Pattern.Products
+
+<article class="device-card rgb-card">
+    <div class="device-card-header">
+        <div>
+            <div class="device-title"><span class="device-icon">RGB</span>@Device.Name</div>
+            <div class="device-type">@Device.Vendor @Device.DeviceType</div>
+        </div>
+        <span class="status-pill @(Device.IsOn ? "on" : "off")">@(Device.IsOn ? "EIN" : "AUS")</span>
+    </div>
+
+    <div class="color-preview" style="background: rgb(@Device.Red, @Device.Green, @Device.Blue)"></div>
+
+    <div class="rgb-controls">
+        <label>R <input type="range" min="0" max="255" @bind="RedValue" @bind:event="oninput" /></label>
+        <label>G <input type="range" min="0" max="255" @bind="GreenValue" @bind:event="oninput" /></label>
+        <label>B <input type="range" min="0" max="255" @bind="BlueValue" @bind:event="oninput" /></label>
+    </div>
+
+    <div class="metric-row compact">
+        <span>RGB</span>
+        <strong>@Device.Red, @Device.Green, @Device.Blue</strong>
+    </div>
+
+    <p class="device-note">@Device.Vendor erzeugt dieses RGBSmartLight mit eigenen Standard-RGB-Werten.</p>
+
+    <div class="card-actions">
+        <button class="primary-action" @onclick="TogglePower">@(Device.IsOn ? "Ausschalten" : "Einschalten")</button>
+        <button class="remove-action" @onclick="() => OnRemove.InvokeAsync(Device.Id)">Entfernen</button>
+    </div>
+</article>
+
+@code {
+    private int red;
+    private int green;
+    private int blue;
+
+    private int RedValue
+    {
+        get => red;
+        set
+        {
+            red = value;
+            ApplyColor();
+        }
+    }
+
+    private int GreenValue
+    {
+        get => green;
+        set
+        {
+            green = value;
+            ApplyColor();
+        }
+    }
+
+    private int BlueValue
+    {
+        get => blue;
+        set
+        {
+            blue = value;
+            ApplyColor();
+        }
+    }
+
+    [Parameter, EditorRequired]
+    public IRgbSmartLight Device { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<Guid> OnRemove { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        red = Device.Red;
+        green = Device.Green;
+        blue = Device.Blue;
+    }
+
+    private void ApplyColor()
+    {
+        Device.SetColor(red, green, blue);
+    }
+
+    private void TogglePower()
+    {
+        if (Device.IsOn)
+        {
+            Device.TurnOff();
+        }
+        else
+        {
+            Device.TurnOn();
+        }
+    }
+}
