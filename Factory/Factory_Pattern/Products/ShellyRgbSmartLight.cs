@@ -12,7 +12,6 @@ public sealed class ShellyRgbSmartLight : IRgbSmartLight
     public Guid Id { get; }
     public string Name { get; }
     public string Vendor => "Shelly";
-    public string DeviceType => "RgbSmartLight";
     public bool IsOn { get; private set; }
     public int Brightness => 100;
     public int Red { get; private set; } = 255;

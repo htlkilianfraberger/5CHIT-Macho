@@ -4,7 +4,7 @@
     <div class="device-card-header">
         <div>
             <div class="device-title"><span class="device-icon">RGB</span>@Device.Name</div>
-            <div class="device-type">@Device.Vendor @Device.DeviceType</div>
+            <div class="device-type">@Device.Vendor @Device.GetType().Name</div>
         </div>
         <span class="status-pill @(Device.IsOn ? "on" : "off")">@(Device.IsOn ? "EIN" : "AUS")</span>
     </div>

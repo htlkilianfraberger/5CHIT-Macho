@@ -26,6 +26,8 @@ public class SmartHomeService
     public IReadOnlyList<string> ProductTypes { get; } = ["SmartLight", "RgbSmartLight"];
     public AbstractFactoryDemoInfo LastDemoInfo { get; private set; }
 
+    //Autor: Kilian Fraberger
+    // Factory Method Pattern mit SmartLight und RGBSmartLight von Shelly und Loxone
     public ISmartLight AddDevice(string factoryName, string productType, string name)
     {
         if (!_factories.TryGetValue(factoryName, out ISmartHomeFactory? factory))

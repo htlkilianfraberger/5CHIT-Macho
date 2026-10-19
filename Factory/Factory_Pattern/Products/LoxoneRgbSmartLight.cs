@@ -12,7 +12,6 @@ public sealed class LoxoneRgbSmartLight : IRgbSmartLight
     public Guid Id { get; }
     public string Name { get; }
     public string Vendor => "Loxone";
-    public string DeviceType => "RgbSmartLight";
     public bool IsOn { get; private set; }
     public int Brightness => 80;
     public int Red { get; private set; } = 255;

@@ -12,7 +12,6 @@ public sealed class LoxoneSmartLight : ISmartLight
     public Guid Id { get; }
     public string Name { get; }
     public string Vendor => "Loxone";
-    public string DeviceType => "SmartLight";
     public bool IsOn { get; private set; }
     public int Brightness { get; }
 
