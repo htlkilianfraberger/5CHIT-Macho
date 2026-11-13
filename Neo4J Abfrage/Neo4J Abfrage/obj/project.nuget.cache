@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "04Ij4RmK+s0=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\kilia\\Github\\5CHIT-Macho\\Neo4J Abfrage\\Neo4J Abfrage\\Neo4J Abfrage.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kilia\\.nuget\\packages\\neo4j.driver\\6.5.1\\neo4j.driver.6.5.1.nupkg.sha512"
+  ],
+  "logs": []
+}

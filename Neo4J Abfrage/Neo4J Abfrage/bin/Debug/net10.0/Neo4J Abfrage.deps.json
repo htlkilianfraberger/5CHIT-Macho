@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Neo4J Abfrage/1.0.0": {
+        "dependencies": {
+          "Neo4j.Driver": "6.5.1"
+        },
+        "runtime": {
+          "Neo4J Abfrage.dll": {}
+        }
+      },
+      "Neo4j.Driver/6.5.1": {
+        "runtime": {
+          "lib/net10.0/Neo4j.Driver.dll": {
+            "assemblyVersion": "6.5.15.1",
+            "fileVersion": "6.5.1.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Neo4J Abfrage/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Neo4j.Driver/6.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VYb1KDuXeCjj8Tl0VEIMvFS3Yqbu6tiIW6za9cHCglMKdqR2pL/55Vi/Y8w5cEqXg70cdlP3QOTkDJer0CX5Mg==",
+      "path": "neo4j.driver/6.5.1",
+      "hashPath": "neo4j.driver.6.5.1.nupkg.sha512"
+    }
+  }
+}

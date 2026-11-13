@@ -10,3 +10,6 @@ C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\Fact
 C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\refint\Factory_Pattern.dll
 C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\Factory_Pattern.pdb
 C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\ref\Factory_Pattern.dll
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\bin\Debug\net10.0\Factory_Pattern.exe
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\bin\Debug\net10.0\Factory_Pattern.runtimeconfig.json
+C:\Users\kilia\Github\5CHIT-Macho\Factory\Factory_Pattern\obj\Debug\net10.0\Factory_Pattern.genruntimeconfig.cache
